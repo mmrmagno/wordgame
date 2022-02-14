@@ -7,7 +7,13 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 
-public enum LetterStatus
+
+
+					
+public class Program
+{
+
+    public enum LetterStatus
 {
     Empty,          
     Wrong,           
@@ -15,10 +21,6 @@ public enum LetterStatus
     Correct         
 }
 
-
-					
-public class Program
-{
 
 
 
@@ -39,30 +41,16 @@ static void Main(string[] args)
                         Random random = new Random();
                         int randomWordPickPos = random.Next(0, words.Length);
                         string solution = words[randomWordPickPos];
-
                         
-                        int guessNum = 8;
-                        
-                        for (let i = 0; i < guess.length; i++) 
+                        string guess;
+                        for (int j = 0; j < 5; j++)
                         {
-                            string guess = Console.ReadLine();
-                            let guessLetter = guess.charAt(i);
-                            let solutionLetter = solution.charAt(i);
-
-                            if (guessLetter == solutionLetter) 
-                            {
-                                result.push("Green");
-                            }
-                            else if (solution.indexOf(guessLetter) != -1) 
-                            {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                            }
-                            else 
-                            {
-                                Console.ForegroundColor = ConsoleColor.DarkRed;
-                            }
-                    }
-
+                        
+                            Console.WriteLine("Guess:");
+                            guess = Console.ReadLine();
+                            guess.CheckLetters();
+                            
+                        }
 
                         Console.WriteLine(solution);
                         repeat = false;
@@ -82,17 +70,17 @@ static void Main(string[] args)
 
         }
 
-public LetterStatus[] CheckLetters(string secretWord, string guess)
+public LetterStatus[] CheckLetters(string solution, string guess)
 {
     var result = new LetterStatus[5];
 
     for (int i = 0; i < guess.Length; i++)
     {
-        if (secretWord[i] == guess[i])
+        if (solution[i] == guess[i])
         {
             result[i] = LetterStatus.Correct;
         }
-        else if (secretWord.Contains(guess[i]))
+        else if (solution.Contains(guess[i]))
         {
             result[i] = LetterStatus.WrongPosition;
         }
